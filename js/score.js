@@ -112,4 +112,16 @@ export function cumulative(days, ids, today) {
   return { keys, series };
 }
 
+// Cheat entries (score -1) of one metric: every phase entry counts; a Day entry
+// only counts when no phase of that day already holds one.
+export function countWorst(days, metricId, from, to) {
+  let n = 0;
+  for (const [k, d] of Object.entries(days)) {
+    if (k < from || k > to) continue;
+    const phaseHits = Object.values(d.phases || {}).filter((p) => p[metricId] === -1).length;
+    n += phaseHits || (d.day?.[metricId] === -1 ? 1 : 0);
+  }
+  return n;
+}
+
 export const allMetricIds = () => METRICS.map((m) => m.id);

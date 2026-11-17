@@ -1,5 +1,5 @@
 // Cache-first Service Worker. Bump VERSION on every change to app files.
-const VERSION = 'spectrack-v1';
+const VERSION = 'spectrack-v3';
 const FILES = [
   './', './index.html', './manifest.json', './icon-192.png', './icon-512.png',
   './css/style.css',

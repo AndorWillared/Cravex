@@ -1,7 +1,7 @@
 import { METRICS, METRIC_BY_ID } from './config.js';
 import { state, todayKey } from './store.js';
 import { fromKey } from './dates.js';
-import { metricValue, isGreat, streaks, greatRatio, monthlyGreat, cumulative, scoreColor } from './score.js';
+import { metricValue, isGreat, streaks, greatRatio, monthlyGreat, cumulative, scoreColor, countWorst } from './score.js';
 import { openLayer, dateLabel } from './ui.js';
 
 const $ = (id) => document.getElementById(id);
@@ -81,6 +81,7 @@ function render() {
   ];
   const legend = lines.map((l) => `<span><span class="dot" style="--c:${l.color}"></span>${l.label}</span>`).join('');
   const basis = ids.length === METRICS.length ? 'all metrics' : ids.map((id) => METRIC_BY_ID[id].label).join(', ');
+  const cheatCell = (from, label) => `<span class="kpi"><b>${countWorst(days, 'food', from, today)}</b><small>${label}</small></span>`;
 
   el.innerHTML = `
     <p class="basis">Based on ${basis} · great day = average ≥ +0.5 and nothing red · tracking since ${dateLabel(keys[0])}</p>
@@ -90,6 +91,9 @@ function render() {
     <div class="card"><h3>Streaks (days in a row)</h3>
       <table class="streaks"><thead><tr><th></th><th>Current</th><th>Longest</th></tr></thead><tbody>${streakRows}</tbody></table>
     </div>
+    <div class="card"><h3>Cheats</h3><div class="kpis">
+      ${cheatCell(`${today.slice(0, 7)}-01`, 'month')}${cheatCell(`${today.slice(0, 4)}-01-01`, 'year')}${cheatCell('0000-00-00', 'total')}
+    </div></div>
     <div class="card"><h3>Great days per month</h3>${monthBars(monthlyGreat(days, ids, today))}</div>
     <div class="card"><h3>Cumulative days</h3>${lineChart(keys, series, lines)}<div class="legend">${legend}</div></div>`;
 }

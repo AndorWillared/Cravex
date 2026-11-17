@@ -23,7 +23,7 @@ export const METRICS = [
   { id: 'focus', label: 'Focus', scope: 'phase', color: '#60a5fa', options: ['scattered', 'normal', 'sharp'] },
   { id: 'energy', label: 'Energy', scope: 'phase', color: '#facc15', options: ['drained', 'ok', 'charged'] },
   { id: 'sport', label: 'Sport', scope: 'day', color: '#fb923c', options: ['couch', 'some moving', 'active'] },
-  { id: 'food', label: 'Food', scope: 'day', color: '#a3e635', options: ['cheat', 'mixed', 'healthy'] },
+  { id: 'food', label: 'Food', scope: 'phase', color: '#a3e635', options: ['cheat', 'mixed', 'healthy'] },
   { id: 'sleep', label: 'Sleep', scope: 'day', color: '#a78bfa', options: ['bad', 'ok', 'good'] },
 ];
 
